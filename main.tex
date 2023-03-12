@@ -36,10 +36,12 @@
 %
 
 \DeclareMathOperator{\M}{\mathcal M}
-\DeclareMathOperator{\eDeriv}{D_{\text{e}}}
+\DeclareMathOperator{\eDeriv}{\prescript{\text{e}}{}D}
 \DeclareMathOperator{\grad}{grad}
-\DeclareMathOperator{\mDeriv}{D_{\text{m}}}
+\DeclareMathOperator{\mDeriv}{\prescript{\text{m}}{}D}
 
+\newcommand{\mixexpbundleat}[1]{\prescript{1}{}S^{1}\maxexpat{#1}}
+\newcommand{\mixexpfibreat}[2]{\prescript{1}{}S^{1}_{#1}\maxexpat{#2}}
 \newcommand{\Bspaceat}[1]{B_{#1}}
 \newcommand{\Bspace}[1]{B_{#1}}
 \newcommand{\Ccs}[1]{C_0\left(#1\right)}
@@ -169,7 +171,43 @@ $\grad \entropyof q = -\log q - \entropyof q$.
 \emph{Exercise 2} The gradient of the $f$-entropy $H_f(q) = \expectat q {f(q))}$ is $\grad H_f(q) = F(q) - \expectat q F(q)$ with $F(q) = f(q) + q f(q) = \derivby q q f(q)$. 
 \end{frame}
 
+\begin{frame}[plain]\small\frametitle{Mixture and exponential bundles}
 
+  \begin{itemize}
+    \item As we have two different parallel transports, it is convenient to distinguish between an \emph{exponential bundle} $\expbundleat X$ with the transport $\etransport {\text{from}}  {\text{to}}$ and a \emph{mixture bundle} $\mixbundleat X$ with transport $\mtransport {\text{from}}  {\text{to}}$.
+    \item To work together in the two bundles we introduce the L-bundle $\mixexpbundleat X$ to be the set of triples $(q,\eta,v)$ with $\eta \in \mixfiberat q X$ and $v \in \expfiberat q X$.
+    \item In this context, the covariance operator is seen as a duality pairing on the fibers:
+      \begin{equation*}
+        \mixexpbundleat X \ni (q,\eta,v) \mapsto \scalarat q \eta v = \expectat q {\eta v} \ .
+      \end{equation*}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[plain,allowframebreaks]\small\frametitle{Covariant derivative}
+
+    \begin{block}{Mixture bundle}
+      Let be given a curve $t \mapsto (q(t),\eta(t)) \in \mixbundleat X$. As $\mixbundleat X$ is an affine space, we can compute the \emph{mixture covariant derivative} as
+      \begin{multline*}
+        \lim_{h \to 0} h^{-1}\left(\eta_{q(t)}{q(t+h)},\mtransport {q(t+h)}{q(t)} \eta(t+h) - \eta(t)\right) = \\
+        \lim_{h \to 0} h^{-1}\left(\frac{q(t+h)}{q(t)}-1 ,\frac {q(t+h)}{q(t)} \eta(t+h) - \eta(t)\right) = \\
+        \left(\frac{\dot q(t)}{q(t)}, \frac{\derivby t \left(q(t) \eta(t)\right)}{q(t)}\right) = \left(\derivby t \log q(t), \eta(t) \derivby t \log q(t) + \dot \eta(t)\right) = \\ \left(\velocity q(t), \mDerivby t \eta(t)\right) \ .
+      \end{multline*}
+    \end{block}
+    
+    Notice that the computation is done in $\reals^X$.
+
+    \newpage
+    
+  \begin{block}{Exponential bundle}
+      Let be given a curve $t \mapsto (q(t),v(t)) \in \expbundleat X$. As $\expbundleat X$ is an affine space, we can compute the \emph{exponential covariant derivative} as
+      \begin{multline*}
+        \lim_{h \to 0} h^{-1}\left(s_{q(t)}{q(t+h)},\etransport {q(t+h)}{q(t)} v(t+h) - v(t)\right) = \\
+    \lim_{h \to 0} h^{-1}\left(\text{do it!} ,v(t+h) - \expectat {q(t)} {v(t+h)} - v(t)\right) = \\
+        \left(\frac{\dot q(t)}{q(t)}, \dot v(t) - \expectat {q(t)} {\dot v(t)} \right) =  \left(\velocity q(t), \eDerivby t v(t)\right) \ .
+      \end{multline*}
+    \end{block}
+
+  \end{frame}
 \end{document}
 
 %%% Local Variables:
