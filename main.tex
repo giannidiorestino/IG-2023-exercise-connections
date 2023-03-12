@@ -1,0 +1,178 @@
+ 
+\documentclass[xcolor=svgnames]{beamer}
+%
+\usetheme{Singapore}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+%
+\setbeamercolor{block body}{bg=AliceBlue}
+
+\usepackage[all]{xy}
+\usepackage{accents}
+\usepackage{amsmath,amssymb}
+\usepackage{array}
+\usepackage{bibentry}
+\usepackage{bm}
+\usepackage{cancel}
+\usepackage{comment}
+\usepackage{etex}
+\usepackage{macros}
+\usepackage{mathscinet}
+\usepackage{mathtools}
+\usepackage{rotating}
+\usepackage{tikz}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan
+    }
+\renewcommand{\newblock}{\relax} %% ??????????
+
+%
+%% Gianni macros
+%
+
+\DeclareMathOperator{\M}{\mathcal M}
+\DeclareMathOperator{\eDeriv}{D_{\text{e}}}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\mDeriv}{D_{\text{m}}}
+
+\newcommand{\Bspaceat}[1]{B_{#1}}
+\newcommand{\Bspace}[1]{B_{#1}}
+\newcommand{\Ccs}[1]{C_0\left(#1\right)}
+\newcommand{\Cexp}[1]{C_0^{(\cosh-1)}\left(#1\right)}
+\newcommand{\Cinfcs}[1]{C_0^\infty\left(#1\right)}
+\newcommand{\Cinfp}[1]{C_{\mathrm{p}}^\infty\left(#1\right)}
+\newcommand{\Derivby}[1]{\frac{\Deriv}{d#1}}
+\newcommand{\Lexp}[1]{L^{(\cosh-1)}\left(#1\right)}
+\newcommand{\LlogL}[1]{L^{(\cosh-1)_*}\left(#1\right)}
+\newcommand{\TMaxexp}{\operatorname{T}\Maxexp}
+\newcommand{\WCexp}[1]{C_0^{1,(\cosh-1)}\left( #1 \right)}
+\newcommand{\Wexp}[1]{W^{1,(\cosh-1)}\left(#1\right)}
+\newcommand{\WlogL}[1]{W^{1,(\cosh-1)_*}\left(#1\right)}
+\newcommand{\bgamma}{{\bm \gamma}}
+\newcommand{\bnabla}{{\bm\nabla}}
+\newcommand{\condexpectat}[3]{{\Expectation}_{#1}\left[#2 \middle| #3\right]}
+\newcommand{\displacement}{\operatorname{\mathbb S}}
+\newcommand{\eBspace}[1]{B_{#1}}
+\newcommand{\eDerivby}[1]{\frac{\eDeriv}{d#1}}
+\newcommand{\ehessianat}[2]{\prescript{e}{}\Hessian_{#1}{#2}}
+\newcommand{\expbundle}{S\Maxexp}
+\newcommand{\fullbundleat}[1]{\prescript{1}{}S^1\maxexpat{#1}}
+\newcommand{\gaussdensity}{\gamma}
+\newcommand{\gaussint}[2]{\int{#1} \gaussdensity(#2) \ d#2 \ }
+\newcommand{\hullof}[1]{\operatorname{hull}\left(#1\right)}
+\newcommand{\mDerivby}[1]{\frac{\mDeriv}{d#1}}
+\newcommand{\maxmix}[1]{\prescript{*}{}{\Maxexp\left(#1\right)}}
+\newcommand{\mhessianat}[2]{\prescript{m}{}\Hessian_{#1}{#2}}
+\newcommand{\mixbundleat}[1]{\prescript{*}{}S\maxexpat{#1}}
+\newcommand{\mixbundle}{\prescript{*}{}S\Maxexp}
+\newcommand{\mixfiberat}[2]{{}^*S_{#1}\maxexpat{#2}}
+\newcommand{\model}{\mathcal M}
+\newcommand{\opensimplexon}[1]{\mathcal P_>\left(#1\right)}
+\newcommand{\preBspaceat}[1]{\prescript{*}{}B_{#1}}
+\newcommand{\preBspace}[1]{\prescript{*}{}B_{#1}}
+\newcommand{\rosso}[1]{\textcolor{red}{#1}}
+\newcommand{\sdomainat}[1]{\sdomain_{#1}}
+\newcommand{\sdomain}{\mathcal S}
+\newcommand{\simplexon}[1]{\mathcal P\left(#1\right)}
+\newcommand{\tensorat}[3]{\prescript{#1}{}S^{#2}\maxexpat{#3}}
+
+\renewcommand{\emph}{\rosso}
+\renewcommand{\transport}[2]{{\mathbb U} _ {#1} ^ {#2}}
+
+%
+%% end Gianni's macros
+%
+
+\title{\it IG 2023 Exercise CONNECTIONS}
+
+\author[G Pistone]{\bf Giovanni Pistone}
+
+\institute[CCA]{\includegraphics[height=4em]{pictures/deCastro-logo.pdf}}
+
+\date{Revised \today}
+
+\begin{document} 
+% 
+\begin{frame}\frametitle{DIMA UNIGE}  
+
+\titlepage
+
+\tiny 
+web-page: \url{www.giannidiorestino.it} 
+
+e-mail: \url{giovanni.pistone@carloalberto.org}
+
+orcidID: 0000-0003-2841-788X
+
+The author acknowledges the support of de Castro Statistics, DIMA U. Genoa, INdAM-GNAMPA
+
+\nobibliography{tutto}%
+
+\bibliographystyle{plain}
+
+\end{frame}
+
+\begin{frame}[plain,allowframebreaks]\small
+
+Let us recall the basic definitions.
+
+\begin{block}{}
+The \emph{open probability simplex} on a finite sample space $X$ is
+\begin{equation*}
+   \maxexpat X = \setof{q \in \reals^X}{\sum_x q(x) = 1, q(x) > 0, x \in X} \ . 
+\end{equation*}
+
+The \emph{statistical bundle} is
+\begin{equation*}
+    \expbundleat X = \setof{(q,v)}{q \in \maxexpat X, \expectat q v = 0} \ .
+\end{equation*}
+The fiber at $q$ is the vector space
+\begin{equation*}
+    \expfiberat q X = \setof {v}{\expectat q v = 0} \ .
+\end{equation*}
+
+The \emph{covariance metric} is the mapping
+\begin{equation*}
+    S^2 \maxexpat X \ni (q,v,w) \mapsto \expectat q {vw} = \covat q u v \ .
+\end{equation*}
+\end{block}
+
+\begin{block}{}
+ The \emph{velocity} or \emph{Fisher's score} of a curve $t \mapsto q(t)$ is
+ \begin{equation*}
+     \velocity q(t) = \frac {\dot q(t)}{q(t)} = \derivby t \log q(t) \ .
+ \end{equation*}
+It holds
+$t \mapsto (q(t),\velocity q(t)) \in \expbundleat X$
+ \end{block}
+ 
+\begin{block}{}
+A \emph{section} or \emph{vector field} in $\expbundleat X$ is a function
+\begin{equation*}
+    A \colon \maxexpat X \ni q \mapsto A(q) \in \expfiberat q X \ .
+\end{equation*}
+
+The \emph{gradient in $\expbundleat X$ (w.r.t. the covariance metric} of a real function $\Phi \colon \maxexpat X \to \reals$ is a section $A = \grad \Phi$ such that 
+\begin{equation*}
+\derivby t \Phi(q(t)) = \scalarat {q(t)} {A(q(t))}{\velocity q(t)} \ .
+\end{equation*}
+\end{block}
+
+\emph{Exercise 1} The gradient of the entropy $\entropyof q = \expectat q {- \log q}$ is
+$\grad \entropyof q = -\log q - \entropyof q$.
+
+\emph{Exercise 2} The gradient of the $f$-entropy $H_f(q) = \expectat q {f(q))}$ is $\grad H_f(q) = F(q) - \expectat q F(q)$ with $F(q) = f(q) + q f(q) = \derivby q q f(q)$. 
+\end{frame}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% reftex-default-bibliography: ("/home/giannidiorestino/Dropbox/InProgress/tutto.bib")
+%%% End:
+

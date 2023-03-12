@@ -1,0 +1,21 @@
+library("Ternary")
+
+# par(mar = rep(0.2, 4))
+TernaryPlot(alab = "q1", blab = "q2", clab = "q3")
+
+POLARIZATION <- function(a, b, c) {
+  4*(q1^2*(1-q1)+q2^2*(1-q2)+q3^2*(1-q3))
+}
+
+# pdf(file="polarization-triplot.pdf", paper="a4r")
+
+plot.new()
+
+# Compute and plot colour tiles
+values <- TernaryPointValues(POLARIZATION, resolution = 24L)
+ColourTernary(values)
+
+# Add contour lines
+TernaryContour(POLARIZATION, resolution = 36L)
+
+# dev.off()

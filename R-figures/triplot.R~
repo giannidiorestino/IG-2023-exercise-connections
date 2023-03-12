@@ -1,0 +1,18 @@
+if(!require('klaR')) {
+  install.packages('klaR')
+  library('klaR')
+}
+
+par(mar = rep(0.2, 4))
+TernaryPlot(alab = "a", blab = "b", clab = "c")
+
+FunctionToContour <- function(a, b, c) {
+  a - c + (4 * a * b) + (27 * a * b * c)
+}
+
+# Compute and plot colour tiles
+values <- TernaryPointValues(FunctionToContour, resolution = 24L)
+ColourTernary(values)
+
+# Add contour lines
+TernaryContour(FunctionToContour, resolution = 36L)
